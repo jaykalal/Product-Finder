@@ -106,6 +106,7 @@ app.get("/registration", (req, res) => {
   res.render("registration");
 });
 
+//Registration Route Post
 app.post("/register", validationRule.form, (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -126,6 +127,7 @@ app.post("/register", validationRule.form, (req, res) => {
   }
 });
 
+//Login Route Post
 app.post("/login", validationRule.loginform, (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
