@@ -1,0 +1,62 @@
+<div class="subtitle-font">Search</div>
+<div class="spacer-75"></div>
+<div class="container-1-3-1">
+    <div></div>
+    <div>
+        <form action="/search" method="POST">
+            <div class="container-2-1">
+                <div>
+                    <div class="pl">Search for any product</div>
+                    <input name="searchBox" class="searchBox" type="text" />
+                </div>
+                <div>
+                    <div class="pl">&nbsp;</div>
+                    <button class="searchButton" type="submit">Search</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div></div>
+</div>
+<div class="spacer-50"></div>
+<hr />
+<div class="container-2-5-1">
+    {{#each products}}
+    <div class="center-vertical">
+        <div class="m-10">{{location}}</div>
+    </div>
+    <div>
+        <div class="description m-10">{{description}}</div>
+    </div>
+    <div class="center-content">{{#if URL}}<a class="remove-decoration" href="{{URL}}">Product Link</a>{{/if}}</div>
+
+    {{/each}}
+
+    {{#unless products}}
+    <div class="center-vertical">
+        <div class="m-10">{{message}}</div>
+    </div>
+    <div>
+        <div class="description m-10"></div>
+    </div>
+    <div class="center-content"></div>
+    {{/unless}}
+
+</div>
+
+<hr />
+<div class="spacer-50"></div>
+
+<div class="spacer-25"></div>
+<div class="container-1-1">
+
+    <div class="login-disclaim pl-30"> Login and registration is for use by retail data providers only.<br />
+        If you are just searching for a product you don't need these.</div>
+    <div>
+        <form class="ib" action="/login" method="GET"><button class="width-150 h-33" type="submit">Login</button>
+        </form>
+        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+        <form class="ib" action="/registration" method="GET"><button class="width-150 h-33" type="submit">Register</button>
+        </form>
+    </div>
+</div>

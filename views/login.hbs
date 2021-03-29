@@ -1,0 +1,41 @@
+<script type="text/javascript">
+  function onLogin() {
+    document.getElementById("loginForm").submit();
+  }
+</script>
+{{#if msg}}
+<script>
+  alert('{{msg}}');
+</script>
+{{/if}}
+<div class="subtitle-font">Login</div>
+<div class="spacer-75"></div>
+<div class="container-1-1-1">
+  <div></div>
+  <div class="b-1 p-20">
+    <form id="loginForm" action="/login" method="POST">
+      <div class="label-1">Email Address</div>
+      <input class="w-100p h-33" type="text" name="email" />
+      <p style="color: red;">
+        {{#if errors}}
+        {{errors.email.msg}}
+        {{/if}}
+      </p>
+      <div class="label-1 mt-10">Password</div>
+      <input class="w-100p h-33" type="password" name="password" />
+      <p style="color: red;">
+        {{#if errors}}
+        {{errors.password.msg}}
+        {{/if}}
+      </p>
+      <div class="center-content mt-10">
+        <div class="btn mt-10 center-content" onclick="onLogin()">Login</div>
+        &nbsp;&nbsp;&nbsp;
+        <a class="remove-decoration mt-10" href="/">
+          <div class="btn center-content">Cancel</div>
+        </a>
+      </div>
+    </form>
+  </div>
+  <div></div>
+</div>

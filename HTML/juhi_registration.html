@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Registration</title>
+
+<link rel="stylesheet" type="text/css" href="../public/css/style.css">
+</head>
+<body>
+
+
+
+<div class="testbox">
+  <h1>Registration</h1>
+
+  <form action="http://localhost:8080/register/add" method="POST">
+    <hr>
+    <div style="margin-left: 44px;">
+        <input type="text" name="name" placeholder="Full Name" required/>
+        <input type="text" name="emailId" id="emailId" placeholder="Email Address" required/>
+        <input type="text" id="confirmEmail" placeholder="Confirm Email Address" required/>
+        <input type="password" name="password"  placeholder="Password" required/>
+    </div>
+    <!-- <p>By clicking Register, you agree on our <a href="#">terms and condition</a>.</p><br> -->
+    <a href="#" class="button">Cancel</a>
+    <!-- <a href="#" class="button">Register</a> -->
+    <input type="submit" class="btn btn-primary float-right" value="Register" />
+  </form>
+</div>
+</body>
+</html>

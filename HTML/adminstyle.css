@@ -1,0 +1,87 @@
+.container-2{
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+}
+
+.container-3{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.container-3-2{
+    display: grid;
+    grid-template-columns: 1fr 3fr 1fr;
+}
+
+.container-6{
+    display: grid;
+    grid-template-columns: 1fr 3fr 1fr 1fr 1fr 1fr;
+}
+
+.container-6 > div:nth-child(12n+1),
+.container-6 > div:nth-child(12n+2),
+.container-6 > div:nth-child(12n+3),
+.container-6 > div:nth-child(12n+4),
+.container-6 > div:nth-child(12n+5),
+.container-6 > div:nth-child(12n+6) {
+    background-color:aliceblue; 
+}
+
+.container-6 > div:nth-child(12n+7),
+.container-6 > div:nth-child(12n+8),
+.container-6 > div:nth-child(12n+9),
+.container-6 > div:nth-child(12n+10),
+.container-6 > div:nth-child(12n+11),
+.container-6 > div:nth-child(12n+12) {
+    background-color:azure;
+}
+
+.center-content{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.center-vertical{
+    display: flex;   
+    align-items: center;
+}
+
+.title-font{
+    font-size: 40px;
+    padding: 0px 20px;
+}
+
+.searchBox{
+    width: 95%;  
+}
+
+.searchButton{
+    width: 200px;
+    height: 33px;
+}
+
+.my-5{
+    margin-bottom: 5px;
+    margin-top: 5px;
+}
+
+.pl{
+    padding: 8px 0px;
+}
+
+.spacer-50{
+    height: 50px;
+}
+
+.spacer-75{
+    height: 75px;
+}
+
+.color-enabled{
+    color: green;
+}
+
+.color-disabled{
+    color: red;
+}

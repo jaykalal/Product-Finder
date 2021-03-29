@@ -1,0 +1,94 @@
+.container-2{
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+}
+
+.container-3{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.container-3-3{
+    display: grid;
+    grid-template-columns: 1fr 3fr 1fr;
+}
+
+.container-3-2{
+    display: grid;
+    grid-template-columns: 2fr 5fr 1fr;
+}
+
+.container-3-2 > div:nth-child(6n+1),
+.container-3-2 > div:nth-child(6n+2),
+.container-3-2 > div:nth-child(6n+3) {
+    background-color:beige;
+}
+
+.container-3-2 > div:nth-child(6n+4),
+.container-3-2 > div:nth-child(6n+5),
+.container-3-2 > div:nth-child(6n+6) {
+    background-color:bisque;
+}
+
+.title-font{
+    font-size: 40px;
+    padding: 0px 20px;
+}
+
+.spacer-25{
+    height: 25px;
+}
+
+.spacer-50{
+    height: 50px;
+}
+
+.spacer-75{
+    height: 75px;
+}
+
+.searchBox{
+    width: 95%;  
+}
+
+.searchButton{
+    width: 200px;
+    height: 33px;
+}
+
+.pl{
+    padding: 8px 0px;
+}
+
+.ib{
+    display: inline-block;
+}
+
+.remove-decoration{
+    text-decoration: none;
+}
+
+.location{
+    margin: 10px;
+}
+
+.description{
+    overflow: auto;
+    max-height: 75px;
+    margin: 10px;
+}
+
+.center-content{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.center-vertical{
+    display: flex;   
+    align-items: center;
+}
+
+.width-150{
+    width: 150px;
+}

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Login</title>
+
+<link rel="stylesheet" type="text/css" href="juhistyle.css">
+</head>
+<body>
+
+
+
+<div class="testbox" style="height: 358px;">
+  <h1>Login</h1>
+
+  <form action="http://localhost:8080/login/validate" method="POST">
+    <hr>
+    <div style="margin-left: 44px;">
+      <input type="text" name="emailId" id="emailId" placeholder="Email Address" required/>
+      <input type="password" name="password" id="password" placeholder="Password" required/>
+    </div>
+    <p>By clicking Register, you agree on our <a href="#">terms and condition</a>.</p><br>
+    <a href="#" class="button" type="reset">Cancel</a>
+    <input type="submit" class="btn btn-primary float-right" value="Register" />
+  </form>
+</div>
+</body>
+</html>
