@@ -7,6 +7,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/style.css" />
     <title>Product Finder</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        function enableuser(userId) {
+            // alert(userId);
+            $.ajax({
+                type: 'POST',
+                url: "/enableuser",
+                data: { userId },
+                success: function (resultData) {
+                    alert(resultData)
+                    location.reload();
+                }
+            });
+        }
+        function removeuser(userId) {
+            // alert(userId);
+            $.ajax({
+                type: 'POST',
+                url: "/removeuser",
+                data: { userId },
+                success: function (resultData) {
+                    alert(resultData)
+                    location.reload();
+                }
+            });
+        }
+    </script>
 </head>
 
 <body>
@@ -25,5 +52,6 @@
     <div class="spacer-50"></div>
 
 </body>
+
 
 </html>

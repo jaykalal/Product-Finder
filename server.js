@@ -99,7 +99,55 @@ app.get("/search", (req, res) => {
 });
 
 app.get("/admin", (req, res) => {
-  res.render("admin");
+  serverDataModule.allusers().then((data) => {
+    res.render("admin", { users: data });
+  });
+});
+
+app.post("/enableuser", (req, res) => {
+  console.log(req.body);
+  serverDataModule
+    .enableuser(req.body.userId)
+    .then(() => {
+      res.send("Done!");
+    })
+    .catch(() => {
+      res.send("error!");
+    });
+});
+
+app.post("/enableuser", (req, res) => {
+  console.log(req.body);
+  serverDataModule
+    .enableuser(req.body.userId)
+    .then(() => {
+      res.send("Done!");
+    })
+    .catch(() => {
+      res.send("error!");
+    });
+});
+app.post("/enableuser", (req, res) => {
+  console.log(req.body);
+  serverDataModule
+    .enableuser(req.body.userId)
+    .then(() => {
+      res.send("Done!");
+    })
+    .catch(() => {
+      res.send("error!");
+    });
+});
+app.post("/removeuser", (req, res) => {
+  console.log(req.body);
+  serverDataModule
+    .removeuser(req.body.userId)
+    .then(() => {
+      res.send("Done!");
+    })
+    .catch(() => {
+      res.send("error!");
+    });
 });
 
 app.get("/registration", (req, res) => {

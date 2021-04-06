@@ -23,13 +23,20 @@
 <div class="spacer-50"></div>
 <hr />
 <div class="container-1-3-1-1-1-1">
-    <div></div>
-    <div class="center-vertical">company@company.com</div>
-    <div class="color-enabled center-content">enabled</div>
-    <div><button class="my-5" type="button">enable-disable</button></div>
-    <div><button class="my-5" type="button">remove</button></div>
-    <div></div>
 
+    {{#each users}}
+    <div></div>
+    <div class="center-vertical">{{this.email}}</div>
+    {{#if this.isActive}}
+    <div class="color-enabled center-content">enabled</div>
+    {{else}}
+    <div class="color-disabled center-content">disabled</div>
+    {{/if}}
+
+    <div><button class="my-5" type="button" onclick="enableuser({{this.userId}})">enable-disable</button></div>
+    <div><button class="my-5" type="button" onclick="removeuser({{this.userId}})">remove</button></div>
+    <div></div>
+    {{/each}}
 </div>
 
 <hr />

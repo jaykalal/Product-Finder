@@ -189,7 +189,44 @@ module.exports.allusers = function (user) {
   return new Promise(function (resolve, reject) {
     User.findAll()
       .then((data) => {
-        console.log(data);
+        //console.log(data);
+        data = data.map((value) => value.dataValues);
+        resolve(data);
+      })
+      .catch(() => {
+        reject();
+      });
+  });
+};
+
+//function to enable or disable retail user
+module.exports.enableuser = function (userId) {
+  return new Promise(function (resolve, reject) {
+    User.findOne({ where: { userId: userId } })
+      .then((user) => {
+        console.log(user);
+        if (user.isActive == true) {
+          user.update({
+            isActive: false,
+          });
+        } else {
+          user.update({
+            isActive: true,
+          });
+        }
+        resolve();
+      })
+      .catch(() => {
+        reject();
+      });
+  });
+};
+
+//function to remove user
+module.exports.removeuser = function (userId) {
+  return new Promise(function (resolve, reject) {
+    User.destroy({ where: { userId: userId } })
+      .then(() => {
         resolve();
       })
       .catch(() => {
