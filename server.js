@@ -91,7 +91,25 @@ app.get("/login", (req, res) => {
 });
 
 app.get("/retail", (req, res) => {
-  res.render("retail");
+  serverDataModule
+    .allProducts()
+    .then((data) => {
+      res.render("retail", { products: data });
+    })
+    .catch(() => console.log("error"));
+});
+
+app.post("/retail", (req, res) => {
+  console.log(req.body);
+  serverDataModule
+    .addProduct(req.body)
+    .then(() => {
+      res.redirect("/retail");
+    })
+    .then(() => console.log("done"))
+    .catch(() => {
+      console.log("error");
+    });
 });
 
 app.get("/search", (req, res) => {

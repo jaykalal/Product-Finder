@@ -45,7 +45,7 @@ var Product = sequelize.define(
     },
     location: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
     },
     description: {
       type: DataTypes.TEXT,
@@ -228,6 +228,38 @@ module.exports.removeuser = function (userId) {
     User.destroy({ where: { userId: userId } })
       .then(() => {
         resolve();
+      })
+      .catch(() => {
+        reject();
+      });
+  });
+};
+
+//function to add product
+module.exports.addProduct = function (data) {
+  return new Promise(function (resolve, reject) {
+    Product.create({
+      SKU: data.sku,
+      keywords: data.keywords,
+      description: data.description,
+      URL: data.url,
+    })
+      .then(() => {
+        resolve();
+      })
+      .catch(() => {
+        reject();
+      });
+  });
+};
+
+//function to get list of all products
+module.exports.allProducts = function (data) {
+  return new Promise(function (resolve, reject) {
+    Product.findAll()
+      .then((data) => {
+        data = data.map((value) => value.dataValues);
+        resolve(data);
       })
       .catch(() => {
         reject();

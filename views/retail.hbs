@@ -31,33 +31,33 @@
     <div>Action</div>
 
 </div>
-<form class="bg-add">
+<form class="bg-add" method="POST" action="/retail">
     <div class="container-1-1-3-1-1">
 
         <div>
-            <textarea class="textBox" placeholder="SKU"></textarea>
+            <textarea class="textBox" placeholder="SKU" name="sku" required></textarea>
         </div>
         <div>
-            <textarea class="textBox" placeholder="Keywords"></textarea>
+            <textarea class="textBox" placeholder="Keywords" name="keywords" required></textarea>
         </div>
         <div>
-            <textarea class="textBox" placeholder="Description"></textarea>
+            <textarea class="textBox" placeholder="Description" name="description" required></textarea>
         </div>
         <div>
-            <textarea class="textBox" placeholder="Product URL"></textarea>
+            <textarea class="textBox" placeholder="Product URL" name="url" required></textarea>
         </div>
 
-        <div class="center-content"><button type="button">&nbsp;add&nbsp;new&nbsp;</button>&nbsp;&nbsp;<button
-                type="button">clear</button></div>
+        <div class="center-content"><button type="submit">&nbsp;add&nbsp;new&nbsp;</button>&nbsp;&nbsp;<button
+                type="reset">clear</button></div>
 
     </div>
 </form>
 <div class="search-view">
 
-
+    {{#each products}}
     <form>
         <div class="container-1-1-3-1-1">
-            <div><textarea class="textBox">X1234567</textarea></div>
+            <div><textarea class="textBox">{{this.SKU}}</textarea></div>
             <div><textarea class="textBox">xbox limited edition</textarea></div>
             <div><textarea class="textBox">Xbox System - Mountain Dew Limited Edition</textarea></div>
             <div><textarea
@@ -68,6 +68,6 @@
         </div>
     </form>
 
-
+    {{/each}}
 </div>
 <hr />
