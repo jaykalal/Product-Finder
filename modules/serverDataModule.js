@@ -1,39 +1,39 @@
 const Sequelize = require("sequelize");
 const { Op, DataTypes } = require("sequelize");
 
-// var sequelize = new Sequelize(
-//   "d25gm2ceodgv13",
-//   "jtddgnbigeqeir",
-//   "49e4b5576b95fe1f336243f25880af16af2f1fee484088166792dd3d9d236781",
-//   {
-//     host: "ec2-54-225-190-241.compute-1.amazonaws.com",
-//     dialect: "postgres",
-//     port: 5432,
-//     dialectOptions: {
-//       ssl: { rejectUnauthorized: false },
-//     },
-//   }
-// );
+var sequelize = new Sequelize(
+  "d25gm2ceodgv13",
+  "jtddgnbigeqeir",
+  "49e4b5576b95fe1f336243f25880af16af2f1fee484088166792dd3d9d236781",
+  {
+    host: "ec2-54-225-190-241.compute-1.amazonaws.com",
+    dialect: "postgres",
+    port: 5432,
+    dialectOptions: {
+      ssl: { rejectUnauthorized: false },
+    },
+  }
+);
 
-var sequelize = new Sequelize("database-1", "postgres", "ProductFinder", {
-  host: "database-1.czup9cfuy5lq.us-east-1.rds.amazonaws.com",
-  dialect: "postgres",
-  port: 5432,
-  dialectOptions: {
-    ssl: { rejectUnauthorized: false },
-  },
-  pool: {
-    max: 2,
+// var sequelize = new Sequelize("database-1", "postgres", "ProductFinder", {
+//   host: "database-1.czup9cfuy5lq.us-east-1.rds.amazonaws.com",
+//   dialect: "postgres",
+//   port: 5432,
+//   dialectOptions: {
+//     ssl: { rejectUnauthorized: false },
+//   },
+//   pool: {
+//     max: 2,
 
-    min: 0,
+//     min: 0,
 
-    acquire: 120000, // This needs to be fairly high to account for a
+//     acquire: 120000, // This needs to be fairly high to account for a
 
-    idle: 120000,
+//     idle: 120000,
 
-    evict: 120000,
-  },
-});
+//     evict: 120000,
+//   },
+// });
 
 var Product = sequelize.define(
   "Product",
