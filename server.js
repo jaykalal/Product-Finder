@@ -100,9 +100,18 @@ function LoggedIn(req, res, next) {
     res.redirect("/login");
   }
 }
+//Middleware to check user is admin or not
+function IsAdmin(req, res, next) {
+  console.log(req.session.user);
+  if (req.session.user.isAdmin == true) {
+    next();
+  } else {
+    res.send("No Permission");
+  }
+}
 
 app.get("/intermediate", LoggedIn, (req, res) => {
-  res.render("intermediate");
+  res.render("intermediate", { LoggedIn: true });
 });
 
 app.get("/", (req, res) => {
@@ -117,7 +126,7 @@ app.get("/retail", LoggedIn, (req, res) => {
   serverDataModule
     .allProducts(req.session.user.userId)
     .then((data) => {
-      res.render("retail", { products: data });
+      res.render("retail", { products: data, LoggedIn: true });
     })
     .catch(() => console.log("error"));
 });
@@ -131,14 +140,29 @@ app.post("/retail", LoggedIn, (req, res) => {
     })
     .catch((err) => console.log(err));
 });
-
+app.post("/updateProduct", LoggedIn, (req, res) => {
+  serverDataModule
+    .updateProduct(req.body)
+    .then(() => {
+      res.redirect("/retail");
+    })
+    .catch((err) => console.log(err));
+});
+app.post("/deleteProduct", LoggedIn, (req, res) => {
+  serverDataModule
+    .deleteProduct(req.body.productId)
+    .then(() => {
+      res.send("Successfully Deleted!");
+    })
+    .catch((err) => console.log(err));
+});
 app.get("/search", (req, res) => {
   res.render("search", { message: "Do a Search" });
 });
 
-app.get("/admin", LoggedIn, (req, res) => {
+app.get("/admin", LoggedIn, IsAdmin, (req, res) => {
   serverDataModule.allusers().then((data) => {
-    res.render("admin", { users: data });
+    res.render("admin", { users: data, LoggedIn: true });
   });
 });
 
@@ -207,6 +231,12 @@ app.post("/login", validationRule.loginform, (req, res) => {
         console.log(msg);
       });
   }
+});
+
+app.get("/logout", (req, res) => {
+  req.session.destroy(function (err) {
+    res.redirect("/login");
+  });
 });
 
 app.post("/search", (req, res) => {

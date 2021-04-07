@@ -1,26 +1,58 @@
-<div class="subtitle-font">Retail Dashboard</div>
-<div class="spacer-75"></div>
-<div class="container-1-3-1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.css" />
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/dataTables.semanticui.min.css" />
+<center>
+    <div class="subtitle-font mt-5 mb-5">Retail Dashboard</div>
+</center>
+<div class="container">
+    <table id="example" class="ui celled table" style="width:100%">
+        <thead>
+            <tr>
+                <td>SKU</td>
+                <td>Keywords</td>
+                <td>Description</td>
+                <td>Product URL</td>
+                <td>Action</td>
+            </tr>
+        </thead>
+        <tbody>
 
-    <div></div>
-    <div>
-        <form action="/" method="POST"></form>
-        <div class="container-2-1">
-            <div>
-                <div class="pl">Find existing products with SKU, keywords<br /> or description words</div>
-                <input name="searchBox" class="searchBox" type="text" />
-            </div>
-            <div>
-                <div class="pl">&nbsp;<br />&nbsp;</div>
-                <button class="searchButton" type="submit">Search</button>
-            </div>
-        </div>
-        </form>
-    </div>
-    <div></div>
+            <tr>
+                <form method="POST" action="/retail">
+                    <td><textarea class="textBox" placeholder="SKU" name="sku" required></textarea></td>
+                    <td><textarea class="textBox" placeholder="Keywords" name="keywords" required></textarea></td>
+                    <td><textarea class="textBox" placeholder="Description" name="description" required></textarea></td>
+                    <td><textarea class="textBox" placeholder="Product URL" name="url" required></textarea></td>
+                    <td><button type="submit"
+                            class="btn btn-success">&nbsp;add&nbsp;new&nbsp;</button>&nbsp;&nbsp;<button
+                            class="btn btn-danger" type="reset">clear</button></td>
+                </form>
+            </tr>
 
+            {{#each products}}
+
+
+            <tr>
+                <form method="post" action="/updateProduct">
+                    <td style="display: none;"><input type="text" value="{{this.productId}}" name="productId" hidden />
+                    </td>
+                    <td><textarea class="textBox" placeholder="SKU" name="sku" required>{{this.SKU}}</textarea></td>
+                    <td><textarea class="textBox" placeholder="Keywords" name="keywords"
+                            required>{{this.keywords}}</textarea></td>
+                    <td><textarea class="textBox" placeholder="Description" name="description"
+                            required>{{this.description}}</textarea></td>
+                    <td><textarea class="textBox" placeholder="Product URL" name="url" required>{{this.URL}}</textarea>
+                    </td>
+                    <td><button type="submit" class="btn btn-success">update</button>&nbsp;&nbsp;<button type="button"
+                            class="btn btn-danger" onclick="deleteProduct({{this.productId}})">remove</button></td>
+                </form>
+            </tr>
+
+
+            {{/each}}
+        </tbody>
+    </table>
 </div>
-<div class="spacer-50"></div>
+{{!-- <div class="spacer-50"></div>
 <hr />
 <div class="container-1-1-3-1-1 view-header bg-odd">
 
@@ -55,19 +87,19 @@
 <div class="search-view">
 
     {{#each products}}
-    <form>
+    <form method="post" action="/updateProduct">
         <div class="container-1-1-3-1-1">
-            <div><textarea class="textBox">{{this.SKU}}</textarea></div>
-            <div><textarea class="textBox">xbox limited edition</textarea></div>
-            <div><textarea class="textBox">Xbox System - Mountain Dew Limited Edition</textarea></div>
-            <div><textarea
-                    class="textBox">https://www.lukiegames.com/Limited-Edition-Mountain-Dew-Xbox-System</textarea>
+            <input type="text" value="{{this.productId}}" hidden name="productId">
+            <div><textarea class="textBox" name="sku">{{this.SKU}}</textarea></div>
+            <div><textarea class="textBox" name="keywords">{{this.keywords}}</textarea></div>
+            <div><textarea class="textBox" name="description">{{this.description}}</textarea></div>
+            <div><textarea class="textBox" name="url">{{this.URL}}</textarea>
             </div>
-            <div class="center-content"><button type="button">update</button>&nbsp;&nbsp;<button
-                    type="button">remove</button></div>
+            <div class="center-content"><button type="submit">update</button>&nbsp;&nbsp;<button type="button"
+                    onclick="deleteProduct({{this.productId}})">remove</button></div>
         </div>
     </form>
 
     {{/each}}
 </div>
-<hr />
+<hr /> --}}

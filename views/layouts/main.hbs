@@ -7,7 +7,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/style.css" />
     <title>Product Finder</title>
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css" />
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- Optional JavaScript -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
     <script>
         function enableuser(userId) {
             // alert(userId);
@@ -33,17 +47,41 @@
                 }
             });
         }
+        function deleteProduct(productId) {
+            // alert(userId);
+            $.ajax({
+                type: 'POST',
+                url: "/deleteProduct",
+                data: { productId },
+                success: function (resultData) {
+                    alert(resultData)
+                    location.reload();
+                }
+            });
+        }
     </script>
 </head>
 
 <body>
-    <div class="spacer-50"></div>
+    <nav class="navbar navbar-expand-lg navbar-light ">
+        <div class="container-fluid ">
 
-    <div class="container-1-1-1">
-        <a class="title-link title-font" href="/">Product Finder</a>
-        <div></div>
-        <div></div>
-    </div>
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">Product Finder</a>
+            </div>
+            {{#if LoggedIn}}
+            <div class="nav navbar-right">
+                <li><a class="btn btn-danger mr-4" href="/logout">Log out</a></li>
+            </div>
+            {{else}}
+            <div class="nav navbar-right">
+                <li><a class="btn btn-success mr-4" href="/login">Login</a></li>
+                <li><a class="btn btn-primary mr-4" href="/registration">Register</a></li>
+            </div>
+
+            {{/if}}
+        </div>
+    </nav>
 
     <main>
         {{{body}}}
@@ -53,5 +91,12 @@
 
 </body>
 
+
+
+<script>
+    $(document).ready(function () {
+        $('#example').DataTable();
+    });
+</script>
 
 </html>

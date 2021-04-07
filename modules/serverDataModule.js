@@ -245,9 +245,44 @@ module.exports.addProduct = function (data, userId) {
       description: data.description,
       URL: data.url,
       userId: userId,
+      location: "canada",
     })
       .then(() => {
         resolve("jello");
+      })
+      .catch((err) => {
+        reject(err);
+      });
+  });
+};
+
+//function to update product
+module.exports.updateProduct = function (data) {
+  return new Promise(function (resolve, reject) {
+    Product.update(
+      {
+        SKU: data.sku,
+        keywords: data.keywords,
+        description: data.description,
+        URL: data.url,
+      },
+      { where: { productId: data.productId } }
+    )
+      .then(() => {
+        resolve();
+      })
+      .catch((err) => {
+        reject(err);
+      });
+  });
+};
+
+//function to delete product
+module.exports.deleteProduct = function (productId) {
+  return new Promise(function (resolve, reject) {
+    Product.destroy({ where: { productId: productId } })
+      .then(() => {
+        resolve();
       })
       .catch((err) => {
         reject(err);
