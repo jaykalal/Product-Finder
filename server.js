@@ -64,6 +64,7 @@ const bodyParser = require("body-parser");
 const exphbs = require("express-handlebars");
 const { validationResult, matchedData } = require("express-validator");
 const validationRule = require("./validation-rule");
+const session = require("express-session");
 
 app.engine(
   ".hbs",
@@ -78,7 +79,29 @@ app.use(express.static("public"));
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.get("/intermediate", (req, res) => {
+app.use(
+  session({
+    secret: "cats",
+    saveUninitialized: true,
+    resave: true,
+  })
+);
+
+app.use(function (req, res, next) {
+  res.locals.session = req.session;
+  next();
+});
+
+//Middleware to check user is logged in or not
+function LoggedIn(req, res, next) {
+  if (req.session.user) {
+    next();
+  } else {
+    res.redirect("/login");
+  }
+}
+
+app.get("/intermediate", LoggedIn, (req, res) => {
   res.render("intermediate");
 });
 
@@ -90,39 +113,36 @@ app.get("/login", (req, res) => {
   res.render("login");
 });
 
-app.get("/retail", (req, res) => {
+app.get("/retail", LoggedIn, (req, res) => {
   serverDataModule
-    .allProducts()
+    .allProducts(req.session.user.userId)
     .then((data) => {
       res.render("retail", { products: data });
     })
     .catch(() => console.log("error"));
 });
 
-app.post("/retail", (req, res) => {
+app.post("/retail", LoggedIn, (req, res) => {
   console.log(req.body);
   serverDataModule
-    .addProduct(req.body)
+    .addProduct(req.body, req.session.user.userId)
     .then(() => {
       res.redirect("/retail");
     })
-    .then(() => console.log("done"))
-    .catch(() => {
-      console.log("error");
-    });
+    .catch((err) => console.log(err));
 });
 
 app.get("/search", (req, res) => {
   res.render("search", { message: "Do a Search" });
 });
 
-app.get("/admin", (req, res) => {
+app.get("/admin", LoggedIn, (req, res) => {
   serverDataModule.allusers().then((data) => {
     res.render("admin", { users: data });
   });
 });
 
-app.post("/enableuser", (req, res) => {
+app.post("/enableuser", LoggedIn, (req, res) => {
   console.log(req.body);
   serverDataModule
     .enableuser(req.body.userId)
@@ -133,30 +153,7 @@ app.post("/enableuser", (req, res) => {
       res.send("error!");
     });
 });
-
-app.post("/enableuser", (req, res) => {
-  console.log(req.body);
-  serverDataModule
-    .enableuser(req.body.userId)
-    .then(() => {
-      res.send("Done!");
-    })
-    .catch(() => {
-      res.send("error!");
-    });
-});
-app.post("/enableuser", (req, res) => {
-  console.log(req.body);
-  serverDataModule
-    .enableuser(req.body.userId)
-    .then(() => {
-      res.send("Done!");
-    })
-    .catch(() => {
-      res.send("error!");
-    });
-});
-app.post("/removeuser", (req, res) => {
+app.post("/removeuser", LoggedIn, (req, res) => {
   console.log(req.body);
   serverDataModule
     .removeuser(req.body.userId)
@@ -196,13 +193,12 @@ app.post("/login", validationRule.loginform, (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     var errMsg = errors.mapped();
-    console.log(errMsg);
     res.render("login", { errors: errMsg });
   } else {
     serverDataModule
       .login(req.body)
       .then((data) => {
-        //console.log(data);
+        req.session.user = data;
         res.redirect("/intermediate");
       })
       .catch((err) => {

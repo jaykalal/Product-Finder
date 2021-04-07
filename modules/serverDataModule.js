@@ -58,7 +58,6 @@ var Product = sequelize.define(
     },
     URL: {
       type: DataTypes.STRING,
-      validate: { isUrl: true },
     },
   },
   {
@@ -172,10 +171,11 @@ module.exports.login = function (user) {
   return new Promise(function (resolve, reject) {
     User.findOne({ where: { email: user.email, password: user.password } })
       .then((data) => {
-        if (data == null) {
-          reject("User Not Found!");
+        data = data.dataValues;
+        if (data) {
+          resolve(data);
         } else {
-          resolve("User Found!");
+          reject("User Not Found!");
         }
       })
       .catch(() => {
@@ -236,27 +236,33 @@ module.exports.removeuser = function (userId) {
 };
 
 //function to add product
-module.exports.addProduct = function (data) {
+module.exports.addProduct = function (data, userId) {
   return new Promise(function (resolve, reject) {
+    console.log(data, userId);
     Product.create({
       SKU: data.sku,
       keywords: data.keywords,
       description: data.description,
       URL: data.url,
+      userId: userId,
     })
       .then(() => {
-        resolve();
+        resolve("jello");
       })
-      .catch(() => {
-        reject();
+      .catch((err) => {
+        reject(err);
       });
   });
 };
 
 //function to get list of all products
-module.exports.allProducts = function (data) {
+module.exports.allProducts = function (userId) {
   return new Promise(function (resolve, reject) {
-    Product.findAll()
+    Product.findAll({
+      where: {
+        userId: userId,
+      },
+    })
       .then((data) => {
         data = data.map((value) => value.dataValues);
         resolve(data);
