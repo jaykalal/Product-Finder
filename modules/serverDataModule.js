@@ -57,7 +57,7 @@ var Product = sequelize.define(
       type: DataTypes.STRING,
     },
     URL: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
     },
   },
   {
